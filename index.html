@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="minimal-dark" data-colorblind="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Adivinha - Jogo Casual de Palavras</title>
+  
+  <!-- Anti-FOUC script síncrono -->
+  <script>
+    (function() {
+      try {
+        const savedPrefs = localStorage.getItem('adivinha_preferences');
+        if (savedPrefs) {
+          const parsed = JSON.parse(savedPrefs);
+          if (parsed.theme) {
+            document.documentElement.setAttribute('data-theme', parsed.theme);
+          }
+          if (typeof parsed.colorblindMode === 'boolean') {
+            document.documentElement.setAttribute('data-colorblind', parsed.colorblindMode.toString());
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fontes dos 3 Conceitos Visuais -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========================================================
+       BARRA DE CONTROLE SUPERIOR (SISTEMA MULTI-TEMA)
+       ======================================================== -->
+  <header class="app-topbar">
+    <div class="brand-section">
+      <h1 class="brand-title">Adivinha</h1>
+      <span class="brand-badge">Modo Ilimitado</span>
+    </div>
+
+    <!-- SELETOR DINÂMICO DOS 3 TEMAS -->
+    <div class="theme-selector-container" role="tablist" aria-label="Seletor de Temas">
+      <button type="button" class="theme-btn active" data-theme-target="minimal-dark" role="tab" aria-selected="true" title="Tema Minimal Dark">
+        <span>🌑</span> Minimal Zen
+      </button>
+      <button type="button" class="theme-btn" data-theme-target="neo-arcade" role="tab" aria-selected="false" title="Tema Neo-Brutalist Arcade">
+        <span>🕹️</span> Arcade Pop
+      </button>
+      <button type="button" class="theme-btn" data-theme-target="editorial-warm" role="tab" aria-selected="false" title="Tema Editorial Warm">
+        <span>☕</span> Café Editorial
+      </button>
+    </div>
+
+    <!-- CONTROLES ADICIONAIS & ACESSIBILIDADE -->
+    <div class="topbar-actions">
+      <button type="button" class="action-pill" id="btn-toggle-colorblind" title="Ativa a paleta de alto contraste e marcadores iconográficos para daltônicos">
+        <span>👁️</span> Alto Contraste (CVD)
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       ÁREA PRINCIPAL DE JOGO (DISPOSITIVO)
+       ======================================================== -->
+  <main class="main-stage">
+    <div class="game-container">
+      
+      <!-- TOAST DE AVISO & LIVE REGION ARIA -->
+      <div class="game-toast" id="game-toast" role="alert" aria-live="assertive"></div>
+
+      <!-- HEADER DO JOGO -->
+      <nav class="game-header" aria-label="Menu Superior do Jogo">
+        <button type="button" class="icon-btn" id="nav-btn-help" title="Como Jogar" aria-label="Ajuda">
+          ❓
+        </button>
+        <div class="game-title-group">
+          <h2 class="game-main-title">ADIVINHA</h2>
+          <p class="game-mode-subtitle">TREINO LIVRE • SEM LIMITES</p>
+        </div>
+        <div class="streak-pill" title="Sequência de Vitórias Atual">
+          🔥 <span id="streak-counter">0</span>
+        </div>
+      </nav>
+
+      <!-- TABULEIRO DO JOGO (6 LINHAS DE 5 LETRAS) -->
+      <div class="board-wrapper" role="region" aria-label="Grade de Tentativas">
+        <div class="board-grid" id="board-grid" role="grid" aria-label="Grade de 6 linhas e 5 colunas">
+          <!-- Gerado dinamicamente pelo BoardComponent -->
+        </div>
+      </div>
+
+      <!-- TECLADO VIRTUAL ERGONÔMICO -->
+      <nav class="virtual-keyboard" id="virtual-keyboard" aria-label="Teclado Virtual de Palpites">
+        <!-- Gerado dinamicamente pelo KeyboardComponent -->
+      </nav>
+
+      <!-- MODAL DE VITÓRIA / DERROTA & ESTATÍSTICAS -->
+      <div class="game-modal-overlay" id="game-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-status-text">
+        <div class="modal-content-card">
+          <h3 class="modal-status-text" id="modal-status-text">Sensacional! 🎉</h3>
+          
+          <div class="word-meaning-card">
+            <h4>Palavra da Rodada</h4>
+            <div class="word-display-large" id="modal-word-display">SAGAZ</div>
+            <div class="word-meaning-text" id="modal-word-meaning">"Dotado de perspicácia; sutil, astuto."</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-val" id="stat-played">0</div>
+              <div class="stat-lbl">Partidas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val" id="stat-win-pct">0%</div>
+              <div class="stat-lbl">Vitórias</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val" id="stat-streak">0</div>
+              <div class="stat-lbl">Sequência</div>
+            </div>
+          </div>
+
+          <div class="modal-cta-group">
+            <button type="button" class="btn-primary-action" id="btn-next-word">
+              Jogar Próxima Palavra ➔
+            </button>
+            <button type="button" class="btn-secondary-action" id="btn-share-result">
+              📋 Copiar Resultado (Emoji Grid)
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

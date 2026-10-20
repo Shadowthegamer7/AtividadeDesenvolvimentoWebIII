@@ -1,0 +1,571 @@
+/* ==========================================================================
+   ESTILOS BASE E COMPONENTES - ADIVINHA
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring, #60A5FA);
+  outline-offset: 2px;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-family, -apple-system, sans-serif);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  touch-action: manipulation;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE TEMAS E CONTROLES
+   ========================================================================== */
+.app-topbar {
+  width: 100%;
+  background: var(--bg-card, #151821);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #2563EB;
+  color: #FFFFFF;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.theme-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0,0,0,0.25);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
+}
+
+.theme-btn.active {
+  background: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.4);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-pill {
+  background: rgba(125,125,125,0.1);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.action-pill:hover {
+  background: rgba(125,125,125,0.2);
+}
+
+.action-pill.active {
+  background: #E66100;
+  color: #FFFFFF;
+  border-color: #FF7711;
+}
+
+/* ==========================================================================
+   CANVAS DO DISPOSITIVO (CONTAINER DO JOGO)
+   ========================================================================== */
+.main-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 440px;
+  height: 840px;
+  max-height: calc(100dvh - 70px);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: 24px;
+  box-shadow: var(--device-shadow);
+  border: var(--device-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 14px 18px 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* HEADER DO JOGO */
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(125,125,125,0.15);
+}
+
+.game-title-group {
+  text-align: center;
+}
+
+.game-main-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.game-mode-subtitle {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.streak-pill {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.15);
+  color: #F59E0B;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   TABULEIRO (GRID 6x5)
+   ========================================================================== */
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 8px 0;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 6px;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 5 / 6;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 6px;
+}
+
+.board-row.shake {
+  animation: rowShake 0.4s ease-in-out;
+}
+
+@keyframes rowShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.tile {
+  aspect-ratio: 1 / 1;
+  border: var(--border-cell, 1.5px solid var(--border-subtle));
+  background: transparent;
+  border-radius: var(--cell-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+  position: relative;
+  perspective: 1000px;
+  box-shadow: var(--cell-shadow);
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.tile.pop {
+  animation: tilePop 0.1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  border-color: var(--border-active);
+}
+
+@keyframes tilePop {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.tile.flip {
+  animation: tileFlip 0.5s ease forwards;
+}
+
+@keyframes tileFlip {
+  0% { transform: rotateX(0); }
+  50% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0); }
+}
+
+.tile.correct {
+  background-color: var(--color-correct) !important;
+  color: var(--color-correct-text) !important;
+  border-color: var(--color-correct) !important;
+}
+
+.tile.present {
+  background-color: var(--color-present) !important;
+  color: var(--color-present-text) !important;
+  border-color: var(--color-present) !important;
+}
+
+.tile.absent {
+  background-color: var(--color-absent) !important;
+  color: var(--color-absent-text) !important;
+  border-color: var(--color-absent) !important;
+}
+
+.tile-symbol {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+[data-colorblind="true"] .tile-symbol {
+  display: block;
+}
+
+/* ==========================================================================
+   TECLADO VIRTUAL
+   ========================================================================== */
+.virtual-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  user-select: none;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4.5px;
+  touch-action: manipulation;
+}
+
+.key-btn {
+  font-family: var(--font-ui);
+  background-color: var(--color-key-default);
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--key-radius);
+  min-height: 52px;
+  flex: 1;
+  max-width: 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--key-shadow);
+  transition: all 0.1s ease;
+  touch-action: manipulation;
+}
+
+.key-btn:active {
+  transform: translateY(2px);
+}
+
+.key-btn.key-wide {
+  max-width: 58px;
+  flex: 1.6;
+  font-size: 0.8rem;
+  background-color: var(--color-key-action);
+  color: #FFFFFF;
+}
+
+.key-btn.correct {
+  background-color: var(--color-correct) !important;
+  color: var(--color-correct-text) !important;
+}
+
+.key-btn.present {
+  background-color: var(--color-present) !important;
+  color: var(--color-present-text) !important;
+}
+
+.key-btn.absent {
+  background-color: var(--color-absent) !important;
+  color: var(--color-absent-text) !important;
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   MODAL DE FIM DE PARTIDA & AJUDA
+   ========================================================================== */
+.game-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+  border-radius: inherit;
+}
+
+.game-modal-overlay.active {
+  display: flex;
+  animation: modalFadeIn 0.25s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--modal-radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-status-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.word-meaning-card {
+  background: rgba(125,125,125,0.08);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-subtle);
+}
+
+.word-meaning-card h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.word-display-large {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-correct);
+  margin: 4px 0;
+}
+
+.word-meaning-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stat-item {
+  background: rgba(125,125,125,0.06);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.stat-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.stat-lbl {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.modal-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-primary-action {
+  background: var(--color-correct);
+  color: var(--color-correct-text);
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease;
+}
+
+.btn-primary-action:hover {
+  transform: translateY(-1px);
+}
+
+.btn-secondary-action {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-secondary-action:hover {
+  background: rgba(125,125,125,0.1);
+}
+
+/* ==========================================================================
+   TOAST DE AVISO
+   ========================================================================== */
+.game-toast {
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1E293B;
+  color: #FFFFFF;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.game-toast.visible {
+  opacity: 1;
+}

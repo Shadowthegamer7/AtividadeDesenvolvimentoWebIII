@@ -1,0 +1,55 @@
+import { SecretWordEntry } from '../core/types';
+
+export const CURATED_WORDS: SecretWordEntry[] = [
+  { word: "TERMO", displayWord: "TERMO", meaning: "Palavra, vocábulo, expressão; fim, limite de tempo ou espaço." },
+  { word: "SAGAZ", displayWord: "SAGAZ", meaning: "Dotado de perspicácia; perspicaz, esperto, sutil e inteligente." },
+  { word: "NOBRE", displayWord: "NOBRE", meaning: "Que tem honradez, dignidade moral e generosidade." },
+  { word: "PLENA", displayWord: "PLENA", meaning: "Completa, total, inteira, sem carência ou falta." },
+  { word: "VIGOR", displayWord: "VIGOR", meaning: "Força viva, energia física potente e vigor intelectual." },
+  { word: "AMPLO", displayWord: "AMPLO", meaning: "Vasto, espaçoso, de grande dimensão ou alcance." },
+  { word: "AFETO", displayWord: "AFETO", meaning: "Sentimento de carinho, afeição e apego a alguém." },
+  { word: "SENDA", displayWord: "SENDA", meaning: "Caminho estreito; rumo, trilha, trajetória de vida." },
+  { word: "ETICA", displayWord: "ÉTICA", meaning: "Conjunto de princípios morais que regem os direitos e deveres humanos." },
+  { word: "AUDAZ", displayWord: "AUDAZ", meaning: "Valente, arrojado, que não tem medo de enfrentar perigos." },
+  { word: "IDEIA", displayWord: "IDEIA", meaning: "Representação mental de uma coisa concreta ou abstrata." },
+  { word: "PODER", displayWord: "PODER", meaning: "Capacidade, autoridade ou faculdade de fazer algo." },
+  { word: "SUTIL", displayWord: "SUTIL", meaning: "Delicado, tênue, perceptível apenas com atenção minuciosa." },
+  { word: "TEMPO", displayWord: "TEMPO", meaning: "Sucessão contínua de momentos em que os eventos se sucedem." },
+  { word: "CORPO", displayWord: "CORPO", meaning: "Estrutura física e material de um ser humano ou animal." },
+  { word: "MUNDO", displayWord: "MUNDO", meaning: "O planeta Terra, o universo e a totalidade das coisas criadas." },
+  { word: "RAZAO", displayWord: "RAZÃO", meaning: "Faculdade humana de raciocinar, julgar e ponderar com lógica." },
+  { word: "FORTE", displayWord: "FORTE", meaning: "Que tem robustez, solidez, vigor e resistência." },
+  { word: "FUTIL", displayWord: "FÚTIL", meaning: "Sem importância, vão, insignificante, superficial." },
+  { word: "IMPAR", displayWord: "ÍMPAR", meaning: "Único, sem igual, extraordinário; número não divisível por dois." },
+  { word: "GRATO", displayWord: "GRATO", meaning: "Que sente ou demonstra reconhecimento por um bem recebido." },
+  { word: "SOLAR", displayWord: "SOLAR", meaning: "Relativo ao Sol; luminoso, radiante e enérgico." },
+  { word: "CLARO", displayWord: "CLARO", meaning: "Luminoso, inteligível, compreensível, sem dubiedades." },
+  { word: "DENSO", displayWord: "DENSO", meaning: "Compacto, espesso, com muita matéria ou conteúdo profundo." },
+  { word: "JUSTO", displayWord: "JUSTO", meaning: "Conforme à justiça, equitativo, reto, imparcial." },
+  { word: "SANTO", displayWord: "SANTO", meaning: "Sagrado, puro, dedicado ao bem e venerado." },
+  { word: "HONRA", displayWord: "HONRA", meaning: "Dignidade, consideração, boa reputação e integridade de caráter." },
+  { word: "VALOR", displayWord: "VALOR", meaning: "Mérito, importância, coragem moral e significância." },
+  { word: "VENTO", displayWord: "VENTO", meaning: "Ar em movimento natural resultante de diferenças de pressão atmosférica." },
+  { word: "LIVRE", displayWord: "LIVRE", meaning: "Que tem liberdade, que não está sob coerção ou cativeiro." },
+  { word: "CALMA", displayWord: "CALMA", meaning: "Tranquilidade de espírito, ausência de agitação ou tempestade." },
+  { word: "FUTUR", displayWord: "FUTURO", meaning: "Tempo vindouro, que está por vir." }
+];
+
+// Dicionário expandido de palavras aceitas como chutes válidos
+export const VALID_GUESSES_LIST: string[] = [
+  "TERMO", "SAGAZ", "NOBRE", "PLENA", "VIGOR", "AMPLO", "AFETO", "SENDA", "ETICA", "AUDAZ",
+  "IDEIA", "PODER", "SUTIL", "TEMPO", "CORPO", "MUNDO", "RAZAO", "FORTE", "FUTIL", "IMPAR",
+  "GRATO", "SOLAR", "CLARO", "DENSO", "JUSTO", "SANTO", "HONRA", "VALOR", "VENTO", "LIVRE",
+  "CALMA", "PLANO", "PRUMO", "TRENO", "FROTA", "POSTO", "LINHA", "CANTO", "PORTA", "BARCO",
+  "FERRO", "TERRA", "FOGO", "AGUA", "FESTA", "DANCA", "CANTO", "LIVRO", "CARTA", "FOLHA",
+  "ARTE", "POEMA", "VERSO", "RITMO", "SOMRA", "LUZES", "CAMPO", "PRAIA", "FLORA", "FAUNA",
+  "SONHO", "NOITE", "TARDE", "MANHA", "MESES", "HORAS", "PASSO", "SALTO", "VOO", "CORDA",
+  "PONTE", "CERTO", "EXATO", "FALHA", "ERROS", "PONTO", "MARCA", "SIGNO", "MAPAS", "NORTE",
+  "SUL", "LESTE", "OESTE", "ALTOS", "BAIXO", "LONG", "BREVE", "DOCE", "ACIDO", "AMOR",
+  "ODIO", "PAZ", "VIDAS", "MORTE", "ALMAS", "MENTE", "GENIO", "SABIO", "MAGIA", "MITOS",
+  "FATO", "CASO", "TEMA", "TEXTO", "FONTE", "CHAVE", "COFRE", "OURO", "PRATA", "BRONZ",
+  "PAPEL", "TINTA", "PENAS", "TRACO", "CORES", "VERDE", "CINZA", "PRETO", "AMBAR", "RUBRO",
+  "AZUIS", "CREME", "FOSCO", "LENTO", "VELOZ", "BREVE", "VIVER", "SENTI", "OUVIR", "FALAR",
+  "DIZER", "ANDAR", "CORRE", "PARAR", "CEDER", "SUBIR", "DESC", "ABRIR", "FECHA", "CRIAR",
+  "FAZER", "TER", "HAVER", "SER", "ESTAR", "FICAR", "IR", "VIR", "SABER", "CONHE"
+];
